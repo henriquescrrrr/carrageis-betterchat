@@ -1,0 +1,14 @@
+# BetterChat - English (en_US)
+# These are plugin admin/system messages, not chat formats.
+# Chat formats are configured in config.yml.
+
+prefix: "<gray>[<gradient:#5E81AC:#88C0D0>BetterChat</gradient>]</gray>"
+
+reload-success: "{prefix} <green>Configuration reloaded successfully!</green>"
+reload-fail: "{prefix} <red>Failed to reload configuration.</red>"
+no-permission: "{prefix} <red>You don't have permission to do that.</red>"
+player-only: "{prefix} <red>This command can only be used by players.</red>"
+usage: "{prefix} <yellow>Usage: /betterchat reload | debugpapi [player] | debugformat [player]</yellow>"
+papi-found: "{prefix} <green>PlaceholderAPI detected! PAPI placeholders are enabled.</green>"
+papi-not-found: "{prefix} <yellow>PlaceholderAPI not found. Only built-in placeholders will work.</yellow>"
+

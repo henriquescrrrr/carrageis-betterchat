@@ -1,0 +1,59 @@
+# BetterChat Configuration
+# Placeholders:
+#   Built-in: {player}, {displayname}, {world}, {online}, {message}
+#   PlaceholderAPI: use standard %placeholder% syntax, e.g. %serverroles_prefix_formatted%
+#
+# All format strings use MiniMessage syntax.
+# See https://docs.advntr.dev/minimessage/format.html
+#
+# Processing order:
+#   1. Built-in placeholders ({player}, {world}, etc.) are replaced first
+#   2. PlaceholderAPI %placeholders% are resolved (if PAPI is installed)
+#   3. {message} is inserted (chat only) — message content never goes through PAPI
+#   4. MiniMessage parses the final string into a Component
+#
+# PAPI placeholders can output MiniMessage tags (e.g. %serverroles_prefix_formatted% may
+# return "<red>[Admin]</red>") and they will be parsed correctly.
+
+language: pt_PT
+
+features:
+  chat-format: true
+  join-quit-messages: true
+  first-join-message: true
+  # If true, players with betterchat.format can use COSMETIC MiniMessage tags in their
+  # messages (colours, decorations, gradient, rainbow, reset). Interactive/structural tags
+  # (<click>, <hover>, <insert>, <newline>, <selector>) are ALWAYS stripped from player input,
+  # even with the permission, so they cannot forge clickable commands, spoof hovers, or inject
+  # extra lines. Players without the permission see all tags as literal text.
+  allow-message-minimessage-with-permission: true
+  mention-highlight:
+    enabled: true
+    # Sound played to the mentioned player (set to "" to disable)
+    sound: "entity.experience_orb.pickup"
+    format: "<yellow>@{mentioned}</yellow>"
+
+formats:
+  # Chat format - supports both built-in {placeholders} and PAPI %placeholders%
+  # Example with ServerRoles:
+  #   chat: "%serverroles_prefix_formatted% %serverroles_color%{player}<reset>: <white>{message}</white>"
+  # Example without PAPI:
+  #   chat: "<gray>{player}</gray>: <white>{message}</white>"
+  chat: "%serverroles_prefix_formatted% %serverroles_color%{player}<reset>: <white>{message}</white>"
+  # Join message
+  join: "<green>+ <gray>{player}</gray></green>"
+  # Quit message
+  quit: "<red>- <gray>{player}</gray></red>"
+  # First join message (only if features.first-join-message is true)
+  first-join: "<gold>★ <gray>{player}</gray> <yellow>joined for the first time!</yellow></gold>"
+
+# Debug settings
+debug:
+  # When enabled, logs PAPI resolution details on startup/reload.
+  # Use /betterchat debugpapi <player> to inspect placeholder resolution step-by-step.
+  papi: false
+  # When enabled, logs the full placeholder resolution pipeline for each chat/join/quit message.
+  # WARNING: This is very verbose! Only enable temporarily for debugging.
+  # Logs: raw format -> after built-in -> after PAPI -> final MiniMessage string
+  placeholder-flow: false
+

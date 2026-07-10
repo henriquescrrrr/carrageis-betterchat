@@ -1,0 +1,29 @@
+name: BetterChat
+version: "${version}"
+main: pt.henrique.betterchat.BetterChat
+description: "Modern chat formatting, join/quit messages with PlaceholderAPI & ServerRoles support."
+api-version: "1.21"
+authors:
+  - Henrique
+
+dependencies:
+  server:
+    PlaceholderAPI:
+      load: BEFORE
+      required: false
+      join-classpath: true
+    ServerRoles:
+      load: BEFORE
+      required: false
+      join-classpath: false
+
+# NOTE: Paper IGNORES a `permissions:` block in paper-plugin.yml. Permissions are therefore
+# registered in code (BetterChat#registerPermissions) so their defaults actually apply:
+#   betterchat.admin  -> default OP    : access to /betterchat admin commands (reload/debug)
+#   betterchat.format -> default FALSE : allows COSMETIC MiniMessage tags (colours/gradients) in
+#                        chat. Interactive/structural tags (<click>, <hover>, <insert>, <newline>,
+#                        <selector>, ...) are ALWAYS stripped from player input, even with this
+#                        permission, so it is safe to grant to donators.
+
+
+
