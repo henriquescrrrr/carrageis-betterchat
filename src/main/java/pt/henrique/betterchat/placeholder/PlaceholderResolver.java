@@ -4,6 +4,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import pt.henrique.betterchat.BetterChat;
+import pt.henrique.betterchat.chat.ChatFormatter;
 
 import java.util.logging.Logger;
 
@@ -34,12 +35,20 @@ public final class PlaceholderResolver {
 
     /**
      * Replace built-in placeholders (except {message}).
+     * <p>
+     * The substituted values are escaped first. The result of this method is parsed with the full
+     * MiniMessage tag set, and a player name is not a safe source: on an offline-mode server Paper
+     * runs no username validation at all ({@code isProxyOnlineMode()} is false, so the check in
+     * {@code handleHello} is skipped) and the login packet only reads 16 UTF characters, so
+     * {@code <} and {@code >} are reachable. Escaping keeps such a name literal instead of letting
+     * it open a {@code <click>} or {@code <hover>} tag in the operator's template.
      */
     private String replaceBuiltIn(Player player, String text) {
         String result = text;
-        result = result.replace("{player}", player.getName());
-        result = result.replace("{displayname}", player.getName());
-        result = result.replace("{world}", player.getWorld().getName());
+        String name = ChatFormatter.escapeTags(player.getName());
+        result = result.replace("{player}", name);
+        result = result.replace("{displayname}", name);
+        result = result.replace("{world}", ChatFormatter.escapeTags(player.getWorld().getName()));
         result = result.replace("{online}", String.valueOf(Bukkit.getOnlinePlayers().size()));
         return result;
     }

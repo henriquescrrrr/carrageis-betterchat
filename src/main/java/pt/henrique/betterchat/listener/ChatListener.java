@@ -109,8 +109,11 @@ public final class ChatListener implements Listener {
                         result = result.append(formatter.buildMessageComponent(pending.toString(), allowFormatting));
                         pending.setLength(0);
                     }
-                    // Append the trusted mention highlight ({mentioned} is a validated player name).
-                    String fragment = config.getMentionFormat().replace("{mentioned}", matchedName);
+                    // Append the mention highlight. The format is operator-authored, but the name
+                    // spliced into it is not: offline-mode logins are not username-validated, so
+                    // the name is escaped before the fragment is parsed as full MiniMessage.
+                    String fragment = config.getMentionFormat()
+                            .replace("{mentioned}", ChatFormatter.escapeTags(matchedName));
                     result = result.append(ChatFormatter.renderTrusted(fragment));
                     if (!toPing.contains(matched)) {
                         toPing.add(matched);

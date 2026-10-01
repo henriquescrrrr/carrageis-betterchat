@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "pt.henrique"
-version = "1.0"
+version = "2.1.0"
 
 repositories {
     mavenCentral()
@@ -13,24 +13,24 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:26.3.build.140-beta")
     compileOnly("me.clip:placeholderapi:2.11.6")
 }
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
 tasks {
     runServer {
-        minecraftVersion("1.21")
+        minecraftVersion("26.3")
     }
 
     withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
-        options.release.set(21)
+        options.release.set(25)
     }
 
     processResources {

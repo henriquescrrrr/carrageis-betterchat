@@ -121,7 +121,9 @@ public final class ChatFormatter {
     }
 
     /**
-     * Escape MiniMessage tags in a string (kept for compatibility / defensive use).
+     * Escape MiniMessage tags in a value that is about to be spliced into a trusted template as a
+     * String (player and world names). Everything spliced this way ends up in a full-tag-set parse,
+     * so the value must not be able to open a tag of its own.
      */
     public static String escapeTags(String input) {
         return MINI.escapeTags(input);

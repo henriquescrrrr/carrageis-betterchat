@@ -2,7 +2,7 @@ name: BetterChat
 version: "${version}"
 main: pt.henrique.betterchat.BetterChat
 description: "Modern chat formatting, join/quit messages with PlaceholderAPI & ServerRoles support."
-api-version: "1.21"
+api-version: "26.3"
 authors:
   - Henrique
 
